@@ -1,0 +1,287 @@
+.container{
+   
+    min-height: 100vh;
+    max-height: 200vh;
+ 
+    background-repeat: no-repeat;
+    background-size: cover ;
+    background-attachment: fixed;
+    background-position: center;
+    overflow-x: hidden;
+}
+.app{
+    background-image:linear-gradient(rgba(245, 245, 245, 0.5), rgba(117, 113, 113, 0.5)), url("../src/5FS7ERQILFEA5AYN3WISNM7MCU.jpg")  ;
+    background-repeat: no-repeat;
+    background-size: cover ;
+    background-attachment: fixed;
+    background-position: center;
+    overflow-x: hidden;
+}
+.appwarm{
+    background-image:linear-gradient(rgba(214, 211, 211, 0.5), rgba(100, 98, 98, 0.5)), url("../src/artistic-painting-cloud-orange-wallpaper-preview.jpg") ;
+    background-repeat: no-repeat;
+    background-size: cover ;
+    background-attachment: fixed;
+    background-position: center;
+    overflow-x: hidden;
+}
+.serach{
+    display: flex;
+    justify-content: space-evenly;
+ 
+}
+ .input{
+  
+     border-radius: 20px;
+     height: 30px;
+     display: flex;
+     position: relative;
+     top: 50px;
+     left: -35%;
+     direction: ltr;
+     font-size: 20px;
+     justify-content: center;
+ }
+ 
+ .input[placeholder]{
+   padding-left: 30px;
+ }
+ .button{
+     position: relative;
+     top: 43px;
+ margin-left: 800px;
+     height: 45px;
+     background-color:rgba(240, 34, 178, 0.5);
+     border: none;
+     color: white;
+     font-size: 20px;
+     display: flex;
+     justify-content: center;
+
+ }
+ .date{
+     direction: ltr;
+     font-size: 30px;
+     margin-left: 20px;
+     margin-top: 30px;
+     color: white;
+ }
+ .location {
+    position: relative;
+    right: 42%;
+     margin-top:-40px ;
+     font-size: 30px;
+ }
+ .psearch{
+     width: 980px;
+     font-size: 65px;
+     font-family: Arial, Helvetica, sans-serif;
+     line-height: 1.06;
+     letter-spacing: -0.02;
+     color: #1d1d1f;
+     direction: ltr;
+     position: relative;
+     top: 50px;
+     left: -150px;
+ }
+ .temp{
+     background-color: rgba(156, 152, 152, 0.5);
+     width: 70%;
+     margin-top: 50px;
+    position: relative;
+    right: 15%;
+
+ }
+ .tomorrow{
+     width: fit-content;
+     height: fit-content;
+     background-color: aquamarine;
+ }
+ 
+ 
+  
+  .center {
+    position: absolute;
+    top: 49.5%;
+    left: 0;
+      right: 0;
+      margin-top: 45px ;
+  }
+  
+  .carousel {
+      position: relative;
+      width: 100%;
+      
+      font-size: 30px;
+      line-height: 45px;
+      height: 45px;
+  }
+ .pre {
+    position: relative;
+    margin-top: -200px;
+    right: 40%;
+    height: 42px;
+    font-size: 50px;
+    width: 45%;
+    line-height: 70px;
+    direction: ltr;
+    margin-bottom: -50px;
+           
+      }
+      
+@media screen and (min-width:400px) {
+    .pre {
+      font-size: 30px;
+    }
+  }
+  
+  @media screen and ( min-width:992px ) {
+    .per {
+      font-size:50px;
+    }
+    
+  }
+  
+  @media screen and ( min-width:1200px) {
+    .pre {
+      font-size: 50px;
+    }
+    .changeouter{
+        margin-top: -300px;
+    }
+     
+  }
+  @media screen and ( min-width:768px) {
+    .pre {
+      font-size: 50px;
+    }
+     
+  }
+      
+      .changeouter {
+          position: absolute;
+        margin-top: 200px;
+          left: 15%;
+          text-align: left;
+          height: 45px;
+          overflow: hidden;
+          font-size: 40px;
+      }
+          
+          .changeinner {
+              position: relative;
+              animation: rotate 8s ease-in-out infinite;
+              
+             
+          }
+          
+          .element {
+              display: block;
+              font-weight: 700;
+        
+          }
+          .element:nth-child(1){
+              color: palevioletred;
+          }
+          .element:nth-child(2){
+            color:  #32a852;
+        }
+        .element:nth-child(3){
+            color: blueviolet;
+        }
+        .element:nth-child(4){
+            color: #f7bd1b;
+        }
+        .element:nth-child(5){
+            color: palevioletred;
+        }
+
+ 
+  
+  @keyframes rotate {
+      0%, 20% {
+          transform: translateY(0);
+      }
+      25%,45% {
+          transform: translateY(-45px);
+      }
+      50%,70% {
+          transform: translateY(-90px);
+      }
+      75%,95% {
+          transform: translateY(-135px);
+      }
+      100% {
+          transform: translateY(-180px);
+      }
+  }
+ .scene{
+     width: 320px;
+     height: 200px;
+     position: relative;
+ 
+ }
+ .scene img{
+position: absolute
+;
+background-color: skyblue;
+ }
+ .city{
+     bottom: -3px;
+     width: 1000px;
+     height: 500px;
+   
+     background: skyblue;
+position: relative;
+left: -280px;
+top: -80px;
+ }
+ .plane{
+     top: 50px;
+     left: -50px;
+     width: 45%;
+     animation: plane-move 15s linear forwards;
+ }
+ .cloud1{
+     width: 70px;
+     top: 0;
+     left: 30px;
+     animation: cloud-move 22s linear forwards;
+     background-color: skyblue;
+
+ }
+ .cloud2{
+    width: 35px;
+    top: 20px;
+    left: 125px;
+    animation: cloud-move 22s linear forwards;
+
+}
+.cloud3{
+    width: 45px;
+    top: 55px;
+    left: 145px;
+    animation: cloud-move 22s linear forwards;
+
+}
+.boat{
+    width: 30%;
+    bottom: 0;
+    right: -50px;
+    animation: boat-move 20s linear forwards;
+}
+@keyframes plane-move{
+    to{
+        transform: translate(300px,-100px);
+    }
+}
+@keyframes cloud-move{
+    to{
+        transform: translate(-25px );
+    }
+}
+@keyframes boat-move{
+    to{
+        transform: translate(-300px );
+    }
+}
