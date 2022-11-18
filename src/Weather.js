@@ -65,79 +65,87 @@ const Weather = () => {
       { data?.city?.name  !== undefined ?
       <div className="container">
         <div className={styles.date}>{dateBuilder(new Date())}</div>
-          <div className={styles.location}>
-           
-            <p> City : {data?.city?.name} , Country : {data?.city?.country} </p>
-          
-            </div>
+     
         
         <div className={styles.temp}>
+          <div className={`${styles.flex} col-xs-12` }>
           <div className="temp">
-            {data?.list ? <h1>{(data?.list[0].main.temp- 273).toFixed()}°C</h1> : null}
-            {data?.list ? <img alt="icon" src= {`http://openweathermap.org/img/w/${data?.list[0]?.weather[0]?.icon}.png`}></img> : null}
+          <div className={styles.location}>
+          <p> City : {data?.city?.name} , Country : {data?.city?.country} </p>  </div>
+            {data?.list ? <h1 className={styles.tempday} >{(data?.list[0].main.temp- 273).toFixed()}°C</h1> : null}
+            {data?.list ? <img className={styles.img} alt="icon" src= {`http://openweathermap.org/img/w/${data?.list[0]?.weather[0]?.icon}.png`}></img> : null}
              
           </div>
-          <div className="description">
-            {data?.list ? <p>{data?.list[0]?.weather[0].description}</p> : null}
-          </div>
+       
          
   
    
-          <div className="bottom">
-            <div className="feels">
+          <div className={`${styles.bottom} col-xs-12`}>
+            <div className={`${styles.feels} col-xs-12 `}>
               {data?.list[0]?.main ? <p className='bold'>{(data.list[0].main.feels_like- 273).toFixed()}°C</p> : null}
               <p>Feels Like</p>
             </div>
-            <div className="humidity">
+            <div className={styles.humidity}>
               {data?.list[0]?.main ? <p className='bold'>{data.list[0].main.humidity}%</p> : null}
               <p> humidity
               </p>
             </div>
-            <div className="wind">
-              {data.list[0].wind ? <p className='bold'>{(data.list[0].wind.speed/0.44704).toFixed()} متر بر ثانیه</p> : null}
+            <div className={styles.wind}>
+              {data.list[0].wind ? <p className='bold'>{(data.list[0].wind.speed/0.44704).toFixed()} m/s </p> : null}
               <p>Wind Speed</p>
             </div>
+            </div>
+            </div>
           
-         <div className='forecast'>
+         <div className={`${styles.forecast} col`}>
            
 
 
-          <div className={styles.tomorrow}>
-            <p>دمای فردا</p>
-            <img src= {`http://openweathermap.org/img/w/${data?.list[1]?.weather[0]?.icon}.png`} alt="icon"></img>
+          <div className={`${styles.tomorrow}  col-xs-12 col-sm-6 col-md-6 col-lg-3`}>
+            <p className={styles.ptomorow}>دمای فردا</p>
+            <div className={styles.flextomorrow}>
+            <img className={styles.img1} src= {`http://openweathermap.org/img/w/${data?.list[1]?.weather[0]?.icon}.png`} alt="icon"></img>
             {data?.list[1]?.main ? <h1>{(data?.list[1]?.main.temp- 273).toFixed()}°C</h1> : null}
-            { data?.list[1]?.weather ? <p>{data?.list[1]?.weather[0].description}</p> : null}
+            </div>
+            { data?.list[1]?.weather ? <p className={styles.pflextomorrow}>{data?.list[1]?.weather[0].description}</p> : null}
           </div>
 
 
 
-          <div className='days2'>
-          <p>دمای پسفردا</p>
-          <img src= {`http://openweathermap.org/img/w/${data?.list[2]?.weather[0]?.icon}.png`} alt="icon"></img>
+          <div  className={`${styles.tomorrow}  col-xs-12 col-sm-6 col-md-6 col-lg-3`}>
+          <p className={styles.ptomorow}>دمای پسفردا</p>
+          <div className={styles.flextomorrow}>
+          <img className={styles.img1} src= {`http://openweathermap.org/img/w/${data?.list[2]?.weather[0]?.icon}.png`} alt="icon"></img>
           {data?.list[2]?.main ? <h1>{(data?.list[2]?.main.temp- 273).toFixed()}°C</h1> : null}
-          { data?.list[2]?.weather ? <p>{data?.list[2]?.weather[0].description}</p> : null}
           </div>
+          { data?.list[2]?.weather ? <p className={styles.pflextomorrow}>{data?.list[2]?.weather[0].description}</p> : null}
+          </div>
+          
 
 
-          <div className='days3'>
-          <p>دمای پسونفردا</p>
-          <img src= {`http://openweathermap.org/img/w/${data?.list[3]?.weather[0]?.icon}.png`} alt="icon"></img>
+          <div  className={`${styles.tomorrow}  col-xs-12 col-sm-6 col-md-6 col-lg-3`}>
+          <p className={styles.ptomorow}>دمای پسونفردا</p>
+          <div className={styles.flextomorrow}>
+          <img className={styles.img1} src= {`http://openweathermap.org/img/w/${data?.list[3]?.weather[0]?.icon}.png`} alt="icon"></img>
           {data?.list[3]?.main ? <h1>{(data?.list[3]?.main.temp- 273).toFixed()}°C</h1> : null}
-          {data?.list[3]?.weather ? <p>{data?.list[3]?.weather[0].description}</p> : null}
+          </div>
+          {data?.list[3]?.weather ? <p className={styles.pflextomorrow}>{data?.list[3]?.weather[0].description}</p> : null}
           </div>
 
 
-          <div className='days4'>
-          <p>دمای پس پسونفردا</p>
-          <img src= {`http://openweathermap.org/img/w/${data?.list[4]?.weather[0]?.icon}.png`} alt="icon"></img>
+          <div  className={`${styles.tomorrow}  col-xs-12 col-sm-6 col-md-6 col-lg-3`}>
+          <p className={styles.ptomorow}>دمای پس پسونفردا</p>
+          <div className={styles.flextomorrow}>
+          <img className={styles.img1} src= {`http://openweathermap.org/img/w/${data?.list[4]?.weather[0]?.icon}.png`} alt="icon"></img>
           {data?.list[4]?.main ? <h1>{(data?.list[4]?.main.temp- 273).toFixed()}°C</h1> : null}
-          {data?.list[4]?.weather ? <p>{data?.list[4]?.weather[0].description}</p> : null}
+          </div>
+          {data?.list[4]?.weather ? <p className={styles.pflextomorrow}>{data?.list[4]?.weather[0].description}</p> : null}
           </div>
         </div>
 
 
 
-        </div>
+       
  </div>
       </div>
 :  <div> <div className={ styles.frame}>
@@ -149,7 +157,7 @@ const Weather = () => {
         <div class={styles.element}>Temp</div>
         <div class= {styles.element}>Humidity</div>
         <div class={styles.element}>Forecast Weather</div>
-        <div class={styles.element}> Atmospheric Conditions</div>
+        <div class={styles.element}>Wind Speed</div>
         <div class={styles.element}>Temp</div>
     
       </div>

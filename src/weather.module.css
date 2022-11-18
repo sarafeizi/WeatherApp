@@ -10,24 +10,23 @@
     overflow-x: hidden;
 }
 .app{
-    background-image:linear-gradient(rgba(245, 245, 245, 0.5), rgba(117, 113, 113, 0.5)), url("../src/5FS7ERQILFEA5AYN3WISNM7MCU.jpg")  ;
-    background-repeat: no-repeat;
-    background-size: cover ;
-    background-attachment: fixed;
-    background-position: center;
+    border-radius: 20px;
+    margin-top: 20px;
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,103,121,0.9640990185136554) 0%, rgba(0,212,255,1) 100%);
     overflow-x: hidden;
 }
 .appwarm{
-    background-image:linear-gradient(rgba(214, 211, 211, 0.5), rgba(100, 98, 98, 0.5)), url("../src/artistic-painting-cloud-orange-wallpaper-preview.jpg") ;
-    background-repeat: no-repeat;
-    background-size: cover ;
-    background-attachment: fixed;
-    background-position: center;
+    margin-top: 20px;
+    border-radius: 20px;
+    background: rgb(213,157,33);
+    background: linear-gradient(0deg, rgba(213,157,33,1) 0%, rgba(255,226,0,1) 100%);
     overflow-x: hidden;
 }
 .serach{
     display: flex;
     justify-content: space-evenly;
+  
  
 }
  .input{
@@ -41,15 +40,16 @@
      direction: ltr;
      font-size: 20px;
      justify-content: center;
+ 
  }
  
  .input[placeholder]{
    padding-left: 30px;
  }
  .button{
+     max-width: 100px;
      position: relative;
      top: 43px;
- margin-left: 800px;
      height: 45px;
      background-color:rgba(240, 34, 178, 0.5);
      border: none;
@@ -61,16 +61,22 @@
  }
  .date{
      direction: ltr;
-     font-size: 30px;
+     font-size: 20px;
      margin-left: 20px;
-     margin-top: 30px;
+     margin-top: 50px;
      color: white;
  }
+  
  .location {
-    position: relative;
-    right: 42%;
+   
+     position: absolute;
      margin-top:-40px ;
-     font-size: 30px;
+     font-size: 20px;
+     color: white;
+     right: 35%;
+     width: 100%;
+ 
+     
  }
  .psearch{
      width: 980px;
@@ -85,21 +91,84 @@
      left: -150px;
  }
  .temp{
-     background-color: rgba(156, 152, 152, 0.5);
-     width: 70%;
+   
+     width: 90%;
      margin-top: 50px;
+     margin-bottom: 30px;
     position: relative;
-    right: 15%;
+    right: 5%;
+    left: 5%;
 
  }
+ .img{
+    width: 150px;
+    position: absolute;
+    left: 90px;
+    top: 60px;
+ }
+ .description{
+     font-size: 30px;
+     position: absolute;
+     left: 100px;
+     top: 170px;
+ }
+ .bottom{
+ display: flex;
+ justify-content: space-between;
+ margin-top: 40px;
+ margin-left: 300px;
+ }
+ .feels , .wind , .humidity{
+font-size: 30px;
+margin: 32px;
+ 
+ 
+ }
+ .flex{
+     display: flex;
+     justify-content: space-evenly;
+ }
+ .img1{
+     width: 90px;
+     margin-top: -20px;
+
+ }
+ .tempday{
+     font-size: 70px;
+     position: absolute;
+     left: 90px;
+ 
+ }
  .tomorrow{
-     width: fit-content;
-     height: fit-content;
-     background-color: aquamarine;
+     width: 200px;
+     height: 200px;
+    background-color: #c0c2c0;
+  border-radius: 20px;
+     margin-bottom: 30px;
+  
+    
+    
+ }
+ .flextomorrow{
+     display: flex;
+     margin-top: 40px;
+ }
+ .ptomorow{
+     display: flex;
+     align-items: center;
+     font-size: 25px;
+     margin-right: 30px;
+     margin-top: 10px;
+ }
+ .pflextomorrow{
+     font-size: 20px;
+     margin-right: 30px;
  }
  
- 
-  
+  .forecast{
+      display: flex;
+      justify-content: space-around;
+  }
   .center {
     position: absolute;
     top: 49.5%;
@@ -118,8 +187,6 @@
   }
  .pre {
     position: relative;
-    margin-top: -200px;
-    right: 40%;
     height: 42px;
     font-size: 50px;
     width: 45%;
@@ -128,35 +195,137 @@
     margin-bottom: -50px;
            
       }
+      @media screen and (min-width:360px ) {
+        .pre {
+          font-size: 30px;
+          width: 80%;
+          left: -20px;
+          top: -250px;
+        }
+        .element{
+            font-size: 30px;
+            
+        }
+        .changeouter{
+            top: -220px;
+        }
+        .button{
+            left: 250px;
+            font-size: 18px;
+            padding: 3px , 3px , 3px ,3px;
+        }
+        .bigdiv{
+            margin-left: 100px;
+        }
+      }
       
-@media screen and (min-width:400px) {
+@media screen and (min-width:400px ) {
     .pre {
       font-size: 30px;
+      width: 70%;
+      margin-left: 20px;
+      margin-right: 20px;
+    }
+    .button{
+        left: 230px;
+        font-size: 20px;
+    }
+    .changeouter{
+        top: -220px;
+    }
+    .changeinner{
+        margin-left: 27px;
+        font-size: 17px;
+    }
+ 
+    .bigdiv{
+        margin-left: 50px;
     }
   }
-  
+  @media screen and (min-width:575px) {
+    .pre {
+      font-size: 40px;
+      margin-right: 80px;
+      left: 20px;
+      top: -200px;
+    }
+    .button{
+        left: 250px;
+        font-size: 20px;
+    }
+    .element{
+        font-size: 40px;
+    }
+    .changeinner{
+        font-size: 20px;
+    }
+    .changeouter{
+        top: -150px;
+    }
+    .bigdiv{
+        margin-left: 100px;
+    }
+  }
+  @media screen and ( min-width:768px) {
+    .pre {
+      font-size: 45px;
+    }
+    .button{
+        left: 310px;
+        font-size: 20px;
+    }
+    .changeouter{
+        margin-left: 30px;
+    }
+    .element{
+        font-size: 40px;
+    }
+    
+     .bigdiv{
+         margin-left: 100px;
+     }
+  }
   @media screen and ( min-width:992px ) {
     .per {
       font-size:50px;
+      width: 50%;
     }
-    
+    .changeouter{
+        margin-left: 70px;
+        top: -200px;
+    }
+    .button{
+        left: 200px;
+        font-size: 20px;
+    }
+    .bigdiv{
+        margin-left: 0px;
+    }
   }
   
   @media screen and ( min-width:1200px) {
     .pre {
       font-size: 50px;
+      width: 50%;
+      left: -275px;
     }
     .changeouter{
-        margin-top: -300px;
+        top: -200px;
+        margin-left: 170px;
     }
-     
-  }
-  @media screen and ( min-width:768px) {
-    .pre {
-      font-size: 50px;
+    .element{
+        font-size: 40px;
     }
-     
+    .button{
+        left: 200px;
+        padding-left: 10px;
+        font-size: 20px;
+    }
+    .bigdiv{
+        margin-left: 00px;
+    }
   }
+ 
       
       .changeouter {
           position: absolute;
@@ -178,6 +347,7 @@
           .element {
               display: block;
               font-weight: 700;
+              position: relative;
         
           }
           .element:nth-child(1){
@@ -215,73 +385,4 @@
           transform: translateY(-180px);
       }
   }
- .scene{
-     width: 320px;
-     height: 200px;
-     position: relative;
- 
- }
- .scene img{
-position: absolute
-;
-background-color: skyblue;
- }
- .city{
-     bottom: -3px;
-     width: 1000px;
-     height: 500px;
-   
-     background: skyblue;
-position: relative;
-left: -280px;
-top: -80px;
- }
- .plane{
-     top: 50px;
-     left: -50px;
-     width: 45%;
-     animation: plane-move 15s linear forwards;
- }
- .cloud1{
-     width: 70px;
-     top: 0;
-     left: 30px;
-     animation: cloud-move 22s linear forwards;
-     background-color: skyblue;
-
- }
- .cloud2{
-    width: 35px;
-    top: 20px;
-    left: 125px;
-    animation: cloud-move 22s linear forwards;
-
-}
-.cloud3{
-    width: 45px;
-    top: 55px;
-    left: 145px;
-    animation: cloud-move 22s linear forwards;
-
-}
-.boat{
-    width: 30%;
-    bottom: 0;
-    right: -50px;
-    animation: boat-move 20s linear forwards;
-}
-@keyframes plane-move{
-    to{
-        transform: translate(300px,-100px);
-    }
-}
-@keyframes cloud-move{
-    to{
-        transform: translate(-25px );
-    }
-}
-@keyframes boat-move{
-    to{
-        transform: translate(-300px );
-    }
-}
+  
