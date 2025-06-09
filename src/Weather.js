@@ -52,8 +52,6 @@ const Weather = () => {
     return `${day} ${date} ${month} ${year}`
   }
 
-
-
   return (
     <div className='container '>
       <div className='row'>
