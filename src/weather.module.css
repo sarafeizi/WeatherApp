@@ -6,13 +6,18 @@
 }
 
 body {
-    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    /* background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); */
+    background-image: url(../public/1.jpg);
+    background-repeat: no-repeat;       /* جلوگیری از تکرار عکس */
+    background-size: cover;             /* عکس کل صفحه رو پوشش بده */
+    background-position: center center; /* عکس وسط صفحه قرار بگیره */
+    background-attachment: fixed;  
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 20px;
-    color: #fff;
+    color: #333;
     font-size: 16px;
 }
 
@@ -23,11 +28,11 @@ body {
     text-align: center;
     width: 100%;
     transition: background 0.3s ease;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
 }
 
 .appwarm {
-    background: linear-gradient(135deg, #ffb347 0%, #ffcc33 100%);
+    /* background: linear-gradient(135deg, #ffb347 0%, #ffcc33 100%); */
 }
 
 .search {
@@ -67,7 +72,7 @@ body {
 .date {
     font-size: 18px;
     margin-top: 10px;
-    color: #f1f1f1;
+    color: #333;
 }
 
 .tempday {
@@ -99,7 +104,7 @@ body {
 .feels p,
 .humidity p,
 .wind p {
-    color: #f1f1f1;
+    color: #333;
 }
 
 .forecast {
@@ -149,7 +154,11 @@ body {
     .button {
         width: 100%;
         max-width: 100%;
+        margin-top: 10px;
+        /* فاصله از اینپوت */
     }
+
+
 
     .bottom {
         flex-direction: column;
@@ -220,22 +229,22 @@ body {
 
 
 .changeouter {
-    position: absolute;
     margin-top: 2%;
-    text-align: left;
+    text-align: right;
     height: 45px;
     overflow: hidden;
     font-size: 31px;
 }
 
 .changeinner {
-    position: relative;
+    text-align: right;
     animation: rotate 8s ease-in-out infinite;
 }
 
 .element {
     display: block;
     font-weight: 700;
+    text-align: right;
     position: relative;
 }
 
