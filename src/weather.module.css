@@ -6,12 +6,11 @@
 }
 
 body {
-    /* background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); */
     background-image: url(../public/1.jpg);
-    background-repeat: no-repeat;       /* جلوگیری از تکرار عکس */
-    background-size: cover;             /* عکس کل صفحه رو پوشش بده */
-    background-position: center center; /* عکس وسط صفحه قرار بگیره */
-    background-attachment: fixed;  
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -28,11 +27,6 @@ body {
     text-align: center;
     width: 100%;
     transition: background 0.3s ease;
-
-}
-
-.appwarm {
-    /* background: linear-gradient(135deg, #ffb347 0%, #ffcc33 100%); */
 }
 
 .search {
@@ -78,7 +72,7 @@ body {
 .tempday {
     font-size: 50px;
     font-weight: bold;
-    margin-top: 10px;
+    margin-top: 40px;
 }
 
 .img {
@@ -107,6 +101,7 @@ body {
     color: #333;
 }
 
+
 .forecast {
     display: flex;
     justify-content: center;
@@ -120,8 +115,8 @@ body {
     min-width: 220px;
     max-width: 250px;
     background: rgba(255, 255, 255, 0.3);
-    padding: 20px;
-    border-radius: 12px;
+    padding: 20px !important;
+    border-radius: 12px !important;
     text-align: center;
     transition: background 0.3s ease;
 }
@@ -139,94 +134,6 @@ body {
     text-align: center;
     font-size: 20px;
 }
-
-@media (max-width: 768px) {
-    .search {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .input {
-        width: 100%;
-        max-width: 100%;
-    }
-
-    .button {
-        width: 100%;
-        max-width: 100%;
-        margin-top: 10px;
-        /* فاصله از اینپوت */
-    }
-
-
-
-    .bottom {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .forecast {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .tomorrow {
-        margin: 10px auto;
-    }
-
-    .tempday {
-        font-size: 40px;
-    }
-
-    .img {
-        width: 80px;
-    }
-}
-
-@media (max-width: 480px) {
-    .tempday {
-        font-size: 35px;
-    }
-
-    .input {
-        font-size: 14px;
-    }
-
-    .button {
-        font-size: 14px;
-    }
-
-    .bottom {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .forecast {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .tomorrow {
-        max-width: 250px;
-    }
-}
-
-@media (min-width: 768px) {
-    .forecast {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 15px;
-    }
-
-    .tomorrow {
-        width: calc(50% - 15px);
-        /* هر کدام نصف عرض */
-        max-width: 250px;
-        /* حداکثر عرض */
-    }
-}
-
 
 .changeouter {
     margin-top: 2%;
@@ -267,7 +174,14 @@ body {
 .element:nth-child(5) {
     color: palevioletred;
 }
-
+@media (max-width: 768px) and (min-width: 450px) {
+    .search input,
+    .search button {
+      width: 100% !important; 
+      max-width: none;
+    }
+  }
+  
 @keyframes rotate {
 
     0%,
