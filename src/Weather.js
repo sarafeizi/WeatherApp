@@ -13,6 +13,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts';
+import { FaHeart, FaRegHeart } from 'react-icons/fa';  // آیکون قلب
 import styles from "./weather.module.css";
 
 // رفع مشکل آیکون مارکر در React-Leaflet
@@ -98,14 +99,7 @@ const Weather = () => {
   };
 
   // اضافه کردن شهر به محبوب‌ها
-  const addFavorite = () => {
-    if (!data || !data.city) return;
-    const city = {
-      name: data.city.name,
-      country: data.city.country,
-      coord: data.city.coord,
-    };
-
+  const addFavorite = (city) => {
     setFavorites(prev => {
       const exists = prev.find(item => item.name === city.name && item.country === city.country);
       if (exists) return prev;
@@ -123,6 +117,26 @@ const Weather = () => {
       localStorage.setItem("favoriteCities", JSON.stringify(updated));
       return updated;
     });
+  };
+
+  // چک کردن اینکه شهر در علاقه‌مندی‌ها هست یا نه
+  const isFavorite = (city) => {
+    return favorites.some(item => item.name === city.name && item.country === city.country);
+  };
+
+  // تغییر وضعیت علاقه‌مندی‌ها با کلیک روی قلب
+  const toggleFavorite = () => {
+    if (!data || !data.city) return;
+    const city = {
+      name: data.city.name,
+      country: data.city.country,
+      coord: data.city.coord,
+    };
+    if (isFavorite(city)) {
+      removeFavorite(city);
+    } else {
+      addFavorite(city);
+    }
   };
 
   const handleChange = (event) => {
@@ -161,49 +175,39 @@ const Weather = () => {
             {/* پیام خطا */}
             {error && <p className="text-danger mt-3" style={{ textAlign: 'right', direction: 'rtl' }}>{error}</p>}
 
-            {/* دکمه افزودن به محبوب‌ها */}
+            {/* نمایش اسم شهر و قلب کنار هم بالای تاریخ و وسط‌چین */}
             {data && data.city && (
-              <div style={{ marginTop: '15px', textAlign: 'right' }}>
-                <button onClick={addFavorite} className={`${styles.button} btn btn-success`}>
-                  افزودن به شهرهای محبوب
-                </button>
+              <div
+                style={{
+                  marginTop: '15px',
+                  textAlign: 'center',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '8px',
+                }}
+              >
+                <p style={{ margin: 0, fontWeight: '600', fontSize: '1.2rem' }}>
+                  {data.city.name}، {data.city.country}
+                </p>
+                <span
+                  onClick={toggleFavorite}
+                  style={{ cursor: 'pointer', color: isFavorite(data.city) ? 'red' : 'gray', fontSize: '1.8rem' }}
+                  title={isFavorite(data.city) ? 'حذف از علاقه مندی‌ها' : 'افزودن به علاقه مندی‌ها'}
+                  aria-label={isFavorite(data.city) ? 'حذف از علاقه مندی‌ها' : 'افزودن به علاقه مندی‌ها'}
+                >
+                  {isFavorite(data.city) ? <FaHeart /> : <FaRegHeart />}
+                </span>
               </div>
             )}
 
-            {/* نمایش لیست شهرهای محبوب */}
-            <div style={{ marginTop: '20px', textAlign: 'right' }}>
-              <h5>شهرهای محبوب:</h5>
-              {favorites.length === 0 && <p>هیچ شهری به محبوب‌ها اضافه نشده است.</p>}
-              <ul style={{ listStyle: 'none', paddingRight: 0 }}>
-                {favorites.map((city, index) => (
-                  <li key={index} style={{ marginBottom: "8px" }}>
-                    <span
-                      style={{ cursor: "pointer", color: "blue", textDecoration: "underline" }}
-                      onClick={() => fetchWeatherByCity(city.name)}
-                    >
-                      {city.name}, {city.country}
-                    </span>
-                    <button
-                      onClick={() => removeFavorite(city)}
-                      style={{ marginLeft: "10px", color: "red", border: 'none', background: 'none', cursor: 'pointer' }}
-                      title="حذف"
-                    >
-                      ❌
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {/* نمایش تاریخ */}
+            <div className={styles.date}>{dateBuilder(new Date())}</div>
 
             {data && data.city ? (
               <>
                 <div className="container">
-                  <div className={styles.date}>{dateBuilder(new Date())}</div>
-
                   <div className={styles.temp}>
-                    <div className={styles.location}>
-                      <p>شهر: {data.city.name}، کشور: {data.city.country}</p>
-                    </div>
                     <h1 className={styles.tempday}>{data.list[0].main.temp.toFixed()}°C</h1>
                     <img
                       className={styles.img}
@@ -256,7 +260,7 @@ const Weather = () => {
                     ))}
                   </div>
 
-                  {/* نقشه با آپدیت مرکز (اینجا منتقل شد به پایین) */}
+                  {/* نقشه با آپدیت مرکز */}
                   <div style={{ height: "300px", marginTop: "20px" }}>
                     <MapContainer
                       center={[data.city.coord.lat, data.city.coord.lon]}
@@ -277,7 +281,7 @@ const Weather = () => {
                     </MapContainer>
                   </div>
 
-                  {/* نمایش نمودار آب‌وهوا (اینجا منتقل شد به پایین) */}
+                  {/* نمایش نمودار آب‌وهوا */}
                   <div style={{ marginTop: "30px" }}>
                     <WeatherChart forecastList={data.list} />
                   </div>
@@ -303,6 +307,77 @@ const Weather = () => {
                 </div>
               </div>
             )}
+
+            {/* بخش شهرهای محبوب */}
+            <div style={{ marginTop: '20px', textAlign: 'center' }}>
+              <h5 style={{ marginBottom: '15px', color: '#333' }}>شهرهای محبوب:</h5>
+              {favorites.length === 0 && <p style={{ color: '#777' }}>هیچ شهری به محبوب‌ها اضافه نشده است.</p>}
+              <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                {favorites.map((city, index) => (
+                  <li
+                    key={index}
+                    style={{
+                      marginBottom: "12px",
+                      padding: "10px 15px",
+                      backgroundColor: "#f9f9f9",
+                      borderRadius: "8px",
+                      boxShadow: "0 1px 4px rgba(0,0,0,0.1)",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      gap: "12px",
+                      maxWidth: "300px",
+                      margin: "12px auto",
+                      transition: "background-color 0.3s ease"
+                    }}
+                    onMouseEnter={e => e.currentTarget.style.backgroundColor = '#e0f7fa'}
+                    onMouseLeave={e => e.currentTarget.style.backgroundColor = '#f9f9f9'}
+                  >
+                    <span
+                      style={{
+                        cursor: "pointer",
+                        color: "#00796b",
+                        textDecoration: "none",
+                        fontWeight: "600",
+                        fontSize: "1rem",
+                      }}
+                      onClick={() => fetchWeatherByCity(city.name)}
+                      onMouseEnter={e => e.currentTarget.style.textDecoration = 'underline'}
+                      onMouseLeave={e => e.currentTarget.style.textDecoration = 'none'}
+                    >
+                      {city.name}, {city.country}
+                    </span>
+                    <button
+                      onClick={() => removeFavorite(city)}
+                      style={{
+                        color: "#d32f2f",
+                        border: 'none',
+                        background: 'none',
+                        cursor: 'pointer',
+                        fontWeight: "bold",
+                        fontSize: "1.2rem",
+                        lineHeight: 1,
+                        padding: 0,
+                        margin: 0,
+                        transition: "color 0.3s ease, transform 0.2s ease",
+                      }}
+                      title="حذف"
+                      aria-label={`حذف ${city.name}`}
+                      onMouseEnter={e => {
+                        e.currentTarget.style.color = '#b71c1c';
+                        e.currentTarget.style.transform = 'scale(1.2)';
+                      }}
+                      onMouseLeave={e => {
+                        e.currentTarget.style.color = '#d32f2f';
+                        e.currentTarget.style.transform = 'scale(1)';
+                      }}
+                    >
+                      ×
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
           </div>
         </div>
