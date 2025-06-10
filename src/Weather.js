@@ -43,30 +43,30 @@ const Weather = () => {
         behavior: 'smooth'
       });
     }
-  },[data]); 
-    useEffect(() => {
-      const fetchFavoriteIcons = async () => {
-        const newFavoritesWeather = {};
-        await Promise.all(
-          favorites.map(async (city) => {
-            try {
-              const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.name}&appid=${API_KEY}&units=metric&lang=fa`;
-              const res = await axios.get(url);
-              newFavoritesWeather[city.name] = res.data.weather[0].icon;
-            } catch (err) {
-              console.error(`Failed to fetch weather for favorite city ${city.name}:`, err);
-            }
-          })
-        );
-        setFavoritesWeather(newFavoritesWeather);
-      };
+  }, [data]);
+  useEffect(() => {
+    const fetchFavoriteIcons = async () => {
+      const newFavoritesWeather = {};
+      await Promise.all(
+        favorites.map(async (city) => {
+          try {
+            const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.name}&appid=${API_KEY}&units=metric&lang=fa`;
+            const res = await axios.get(url);
+            newFavoritesWeather[city.name] = res.data.weather[0].icon;
+          } catch (err) {
+            console.error(`Failed to fetch weather for favorite city ${city.name}:`, err);
+          }
+        })
+      );
+      setFavoritesWeather(newFavoritesWeather);
+    };
 
-      if (favorites.length > 0) {
-        fetchFavoriteIcons();
-      } else {
-        setFavoritesWeather({});
-      }
-    }, [favorites]);
+    if (favorites.length > 0) {
+      fetchFavoriteIcons();
+    } else {
+      setFavoritesWeather({});
+    }
+  }, [favorites]);
 
   const fetchWeatherByCity = async (cityName) => {
     if (!cityName || cityName.trim() === "") return;
@@ -167,9 +167,8 @@ const Weather = () => {
               location={location}
               handleChange={handleChange}
               searchLocation={searchLocation}
-              error={error}
+              error={error ? <span style={{ color: 'rgb(183 18 34)' }}>{error}</span> : ""}
             />
-
             {data && data.city ? (
               <>
                 <CurrentWeatherDisplay

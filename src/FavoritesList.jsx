@@ -5,7 +5,7 @@ import React from 'react';
 
 const FavoritesList = ({ favorites, favoritesWeather, fetchWeatherByCity, removeFavorite, clearFavorites }) => {
     return (
-        <div className="mt-4 text-center">
+        <div className="text-center" style={{ marginTop: '4rem' }}>
             {/* Removed ToastContainer from here. It should be in Weather.jsx or App.js */}
             <h5 className="mb-3 text-secondary d-flex justify-content-center align-items-center">
                 شهرهای محبوب:
@@ -43,7 +43,7 @@ const FavoritesList = ({ favorites, favoritesWeather, fetchWeatherByCity, remove
                         <span
                             className="fw-semibold d-flex align-items-center"
                             style={{ fontSize: "1rem", color: 'black' }} // !important is often not needed if you manage specificity, but if you face issues, you can add it back.
-                            // onMouseEnter and onMouseLeave for text-decoration are removed here
+                        // onMouseEnter and onMouseLeave for text-decoration are removed here
                         >
                             {favoritesWeather[city.name] && (
                                 <img

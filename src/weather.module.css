@@ -137,21 +137,21 @@ body {
 
 .changeouter {
     margin-top: 2%;
-    text-align: right;
+    text-align: left;
     height: 45px;
     overflow: hidden;
     font-size: 31px;
 }
 
 .changeinner {
-    text-align: right;
+    text-align: left;
     animation: rotate 8s ease-in-out infinite;
 }
 
 .element {
     display: block;
     font-weight: 700;
-    text-align: right;
+    text-align: left;
     position: relative;
 }
 
