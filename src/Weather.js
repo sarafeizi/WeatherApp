@@ -1,32 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import SearchBar from './SearchBar';
-import CurrentWeatherDisplay from './CurrentWeatherDisplay';
-import ForecastDisplay from './ForecastDisplay';
-import WeatherMap from './WeatherMap';
-import WeatherChart from './WeatherChart'; 
-import FavoritesList from './FavoritesList';
-import styles from "./weather.module.css";
+
+// Importing the separated components with correct paths
+import SearchBar from '../src/SearchBar';
+import CurrentWeatherDisplay from '../src/CurrentWeatherDisplay';
+import ForecastDisplay from '../src/ForecastDisplay';
+import WeatherMap from '../src/WeatherMap';
+import WeatherChart from '../src/WeatherChart';
+import FavoritesList from '../src/FavoritesList';
+import styles from '../src/weather.module.css'; 
 
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-delete L.Icon.Default.prototype._getIconUrl;
+
+if (L.Icon.Default.prototype._getIconUrl) {
+  delete L.Icon.Default.prototype._getIconUrl;
+}
+
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
   iconUrl: require('leaflet/dist/images/marker-icon.png'),
   shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
 });
 
-
 const API_KEY = "e90c7902b15b8c690182bb581503f6c3";
 
 const Weather = () => {
-  const [data, setData] = useState(null);
-  const [location, setLocation] = useState(() => {
-    return localStorage.getItem("lastSearchedCity") || "";
-  });
+  const [data, setData] = useState(null); 
+  const [location, setLocation] = useState(""); 
   const [error, setError] = useState("");
   const [favorites, setFavorites] = useState(() => {
     const saved = localStorage.getItem("favoriteCities");
@@ -35,23 +38,19 @@ const Weather = () => {
   const [favoritesWeather, setFavoritesWeather] = useState({});
 
   useEffect(() => {
-    const lastCity = localStorage.getItem("lastSearchedCity");
-    if (lastCity) {
-      fetchWeatherByCity(lastCity);
-    }
-  }, []); 
-  useEffect(() => {
     const fetchFavoriteIcons = async () => {
       const newFavoritesWeather = {};
-      for (const city of favorites) {
-        try {
-          const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.name}&appid=${API_KEY}&units=metric&lang=fa`;
-          const res = await axios.get(url);
-          newFavoritesWeather[city.name] = res.data.weather[0].icon;
-        } catch (err) {
-          console.error(`Failed to fetch weather for favorite city ${city.name}:`, err);
-        }
-      }
+      await Promise.all(
+        favorites.map(async (city) => {
+          try {
+            const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.name}&appid=${API_KEY}&units=metric&lang=fa`;
+            const res = await axios.get(url);
+            newFavoritesWeather[city.name] = res.data.weather[0].icon;
+          } catch (err) {
+            console.error(`Failed to fetch weather for favorite city ${city.name}:`, err);
+          }
+        })
+      );
       setFavoritesWeather(newFavoritesWeather);
     };
 
@@ -60,7 +59,7 @@ const Weather = () => {
     } else {
       setFavoritesWeather({});
     }
-  }, [favorites]); 
+  }, [favorites]);
 
   const fetchWeatherByCity = async (cityName) => {
     if (!cityName || cityName.trim() === "") return;
@@ -70,12 +69,12 @@ const Weather = () => {
       const response = await axios.get(url);
       setData(response.data);
       setError("");
-      setLocation(''); 
+      setLocation('');
       localStorage.setItem("lastSearchedCity", cityName);
     } catch (err) {
       setError("شهر مورد نظر یافت نشد. لطفاً دوباره تلاش کنید.");
       setData(null);
-      localStorage.removeItem("lastSearchedCity"); 
+      localStorage.removeItem("lastSearchedCity");
     }
   };
 
@@ -151,9 +150,12 @@ const Weather = () => {
 
   return (
     <div className="container">
+      <ToastContainer position="top-right" autoClose={3000} />
+
       <div className="row justify-content-center">
         <div className={`col-12 col-md-10 col-lg-8 ${data?.list && data?.list[0]?.main?.temp > 25 ? styles.appwarm : styles.app}`}>
           <div className={styles.bigdiv}>
+
             <SearchBar
               location={location}
               handleChange={handleChange}
@@ -169,13 +171,16 @@ const Weather = () => {
                   toggleFavorite={toggleFavorite}
                   dateBuilder={dateBuilder}
                 />
+                
                 <ForecastDisplay forecasts={getDailyForecasts()} />
+                
                 <WeatherMap
                   lat={data.city.coord.lat}
                   lon={data.city.coord.lon}
                   cityName={data.city.name}
                   countryName={data.city.country}
                 />
+                
                 <div className="mt-5">
                   <WeatherChart forecastList={data.list} />
                 </div>
