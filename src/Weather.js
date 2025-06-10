@@ -6,7 +6,7 @@ import SearchBar from './SearchBar';
 import CurrentWeatherDisplay from './CurrentWeatherDisplay';
 import ForecastDisplay from './ForecastDisplay';
 import WeatherMap from './WeatherMap';
-import WeatherChart from './CurrentWeatherDisplay'; 
+import WeatherChart from './WeatherChart'; 
 import FavoritesList from './FavoritesList';
 import styles from "./weather.module.css";
 
