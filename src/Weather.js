@@ -10,7 +10,7 @@ import ForecastDisplay from '../src/ForecastDisplay';
 import WeatherMap from '../src/WeatherMap';
 import WeatherChart from '../src/WeatherChart';
 import FavoritesList from '../src/FavoritesList';
-import styles from '../src/weather.module.css'; 
+import styles from '../src/weather.module.css';
 
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -28,38 +28,45 @@ L.Icon.Default.mergeOptions({
 const API_KEY = "e90c7902b15b8c690182bb581503f6c3";
 
 const Weather = () => {
-  const [data, setData] = useState(null); 
-  const [location, setLocation] = useState(""); 
+  const [data, setData] = useState(null);
+  const [location, setLocation] = useState("");
   const [error, setError] = useState("");
   const [favorites, setFavorites] = useState(() => {
     const saved = localStorage.getItem("favoriteCities");
     return saved ? JSON.parse(saved) : [];
   });
   const [favoritesWeather, setFavoritesWeather] = useState({});
-
   useEffect(() => {
-    const fetchFavoriteIcons = async () => {
-      const newFavoritesWeather = {};
-      await Promise.all(
-        favorites.map(async (city) => {
-          try {
-            const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.name}&appid=${API_KEY}&units=metric&lang=fa`;
-            const res = await axios.get(url);
-            newFavoritesWeather[city.name] = res.data.weather[0].icon;
-          } catch (err) {
-            console.error(`Failed to fetch weather for favorite city ${city.name}:`, err);
-          }
-        })
-      );
-      setFavoritesWeather(newFavoritesWeather);
-    };
-
-    if (favorites.length > 0) {
-      fetchFavoriteIcons();
-    } else {
-      setFavoritesWeather({});
+    if (data) {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
     }
-  }, [favorites]);
+  },[data]); 
+    useEffect(() => {
+      const fetchFavoriteIcons = async () => {
+        const newFavoritesWeather = {};
+        await Promise.all(
+          favorites.map(async (city) => {
+            try {
+              const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.name}&appid=${API_KEY}&units=metric&lang=fa`;
+              const res = await axios.get(url);
+              newFavoritesWeather[city.name] = res.data.weather[0].icon;
+            } catch (err) {
+              console.error(`Failed to fetch weather for favorite city ${city.name}:`, err);
+            }
+          })
+        );
+        setFavoritesWeather(newFavoritesWeather);
+      };
+
+      if (favorites.length > 0) {
+        fetchFavoriteIcons();
+      } else {
+        setFavoritesWeather({});
+      }
+    }, [favorites]);
 
   const fetchWeatherByCity = async (cityName) => {
     if (!cityName || cityName.trim() === "") return;
@@ -171,16 +178,16 @@ const Weather = () => {
                   toggleFavorite={toggleFavorite}
                   dateBuilder={dateBuilder}
                 />
-                
+
                 <ForecastDisplay forecasts={getDailyForecasts()} />
-                
+
                 <WeatherMap
                   lat={data.city.coord.lat}
                   lon={data.city.coord.lon}
                   cityName={data.city.name}
                   countryName={data.city.country}
                 />
-                
+
                 <div className="mt-5">
                   <WeatherChart forecastList={data.list} />
                 </div>

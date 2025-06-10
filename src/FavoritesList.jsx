@@ -1,11 +1,12 @@
-
 import React from 'react';
-import { ToastContainer } from 'react-toastify';
+// ToastContainer should generally be placed in the root component (e.g., App.js or Weather.jsx)
+// to ensure it renders only once and manages all toasts globally.
+// import { ToastContainer } from 'react-toastify'; // Removed from here
 
 const FavoritesList = ({ favorites, favoritesWeather, fetchWeatherByCity, removeFavorite, clearFavorites }) => {
     return (
         <div className="mt-4 text-center">
-            <ToastContainer position="top-right" autoClose={3000} />
+            {/* Removed ToastContainer from here. It should be in Weather.jsx or App.js */}
             <h5 className="mb-3 text-secondary d-flex justify-content-center align-items-center">
                 شهرهای محبوب:
                 {favorites.length > 0 && (
@@ -29,16 +30,20 @@ const FavoritesList = ({ favorites, favoritesWeather, fetchWeatherByCity, remove
                     <li
                         key={index}
                         className="mx-auto mb-3 p-3 rounded shadow-sm d-flex justify-content-between align-items-center"
-                        style={{ maxWidth: "300px", backgroundColor: "#f9f9f9", transition: "background-color 0.3s ease", cursor: 'pointer' }}
+                        style={{
+                            maxWidth: "300px",
+                            backgroundColor: "#f9f9f9",
+                            transition: "background-color 0.3s ease",
+                            cursor: 'pointer' // Makes the whole item clickable
+                        }}
                         onMouseEnter={e => e.currentTarget.style.backgroundColor = '#e0f7fa'}
                         onMouseLeave={e => e.currentTarget.style.backgroundColor = '#f9f9f9'}
+                        onClick={() => fetchWeatherByCity(city.name)} // Clickable on the entire <li>
                     >
                         <span
-                            className="fw-semibold text-primary d-flex align-items-center"
-                            style={{ fontSize: "1rem" }}
-                            onClick={() => fetchWeatherByCity(city.name)}
-                            onMouseEnter={e => e.currentTarget.style.textDecoration = 'underline'}
-                            onMouseLeave={e => e.currentTarget.style.textDecoration = 'none'}
+                            className="fw-semibold d-flex align-items-center"
+                            style={{ fontSize: "1rem", color: 'black' }} // !important is often not needed if you manage specificity, but if you face issues, you can add it back.
+                            // onMouseEnter and onMouseLeave for text-decoration are removed here
                         >
                             {favoritesWeather[city.name] && (
                                 <img
@@ -51,7 +56,7 @@ const FavoritesList = ({ favorites, favoritesWeather, fetchWeatherByCity, remove
                         </span>
 
                         <button
-                            onClick={(e) => { e.stopPropagation(); removeFavorite(city); }}
+                            onClick={(e) => { e.stopPropagation(); removeFavorite(city); }} // StopPropagation prevents li's onClick from firing
                             className="btn p-0 m-0 text-danger fw-bold border-0"
                             style={{ fontSize: "1.2rem", lineHeight: 1, background: "none", transition: "transform 0.2s ease" }}
                             title="حذف"
