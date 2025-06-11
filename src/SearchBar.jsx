@@ -1,6 +1,5 @@
-
 import React from 'react';
-import styles from "../src/weather.module.css"; 
+import styles from "../src/weather.module.css";
 
 const SearchBar = ({ location, handleChange, searchLocation, error }) => {
     return (
@@ -18,6 +17,7 @@ const SearchBar = ({ location, handleChange, searchLocation, error }) => {
                 <button
                     onClick={searchLocation}
                     className={`${styles.button} btn col-12 col-sm-3 col-md-2 col-lg-2`}
+                    disabled={location.trim() === ""}
                 >
                     جستجو
                 </button>

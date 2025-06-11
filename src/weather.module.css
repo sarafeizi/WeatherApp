@@ -105,7 +105,7 @@ body {
 .forecast {
     display: flex;
     justify-content: center;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     margin-top: 20px;
     gap: 15px;
 }
@@ -174,14 +174,16 @@ body {
 .element:nth-child(5) {
     color: palevioletred;
 }
+
 @media (max-width: 768px) and (min-width: 450px) {
+
     .search input,
     .search button {
-      width: 100% !important; 
-      max-width: none;
+        width: 100% !important;
+        max-width: none;
     }
-  }
-  
+}
+
 @keyframes rotate {
 
     0%,

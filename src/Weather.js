@@ -69,15 +69,17 @@ const Weather = () => {
   }, [favorites]);
 
   const fetchWeatherByCity = async (cityName) => {
-    if (!cityName || cityName.trim() === "") return;
+    const trimmedCity = cityName.trim();
+    if (!trimmedCity) return;
 
-    const url = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${API_KEY}&units=metric&lang=fa`;
+    const url = `https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(trimmedCity)}&appid=${API_KEY}&units=metric&lang=fa`;
+
     try {
       const response = await axios.get(url);
       setData(response.data);
-      setError("");
+      setError('');
       setLocation('');
-      localStorage.setItem("lastSearchedCity", cityName);
+      localStorage.setItem("lastSearchedCity", trimmedCity);
     } catch (err) {
       setError("شهر مورد نظر یافت نشد. لطفاً دوباره تلاش کنید.");
       setData(null);
@@ -85,9 +87,11 @@ const Weather = () => {
     }
   };
 
+
   const searchLocation = (event) => {
-    if ((event.key === 'Enter' || event.type === "click") && location.trim() !== "") {
-      fetchWeatherByCity(location);
+    const trimmedLocation = location.trim();
+    if ((event.key === 'Enter' || event.type === "click") && trimmedLocation !== "") {
+      fetchWeatherByCity(trimmedLocation);
     }
   };
 
