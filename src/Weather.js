@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-// Importing the separated components with correct paths
 import SearchBar from '../src/SearchBar';
 import CurrentWeatherDisplay from '../src/CurrentWeatherDisplay';
 import ForecastDisplay from '../src/ForecastDisplay';
