@@ -126,17 +126,7 @@ const Weather = () => {
   const isFavorite = (city) => {
     return favorites.some(item => item.name === city.name && item.country === city.country);
   };
-const getWindDirection = (deg) => {
-  if (deg >= 337.5 || deg < 22.5) return "شمال";
-  if (deg >= 22.5 && deg < 67.5) return "شمال‌شرق";
-  if (deg >= 67.5 && deg < 112.5) return "شرق";
-  if (deg >= 112.5 && deg < 157.5) return "جنوب‌شرق";
-  if (deg >= 157.5 && deg < 202.5) return "جنوب";
-  if (deg >= 202.5 && deg < 247.5) return "جنوب‌غرب";
-  if (deg >= 247.5 && deg < 292.5) return "غرب";
-  if (deg >= 292.5 && deg < 337.5) return "شمال‌غرب";
-  return "نامشخص";
-};
+
 
   const toggleFavorite = () => {
     if (!data || !data.city) return;
