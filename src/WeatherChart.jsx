@@ -10,7 +10,6 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 
-// این کامپوننت بدون تغییر از کد اصلی شما آمده است.
 const WeatherChart = ({ forecastList }) => {
   if (!forecastList) return null;
 

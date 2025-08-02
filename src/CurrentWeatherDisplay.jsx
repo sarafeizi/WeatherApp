@@ -9,7 +9,17 @@ const CurrentWeatherDisplay = ({ data, isFavorite, toggleFavorite, dateBuilder }
     }
 
     const currentWeatherData = data.list[0];
-
+const getWindDirection = (deg) => {
+  if (deg >= 337.5 || deg < 22.5) return "شمال";
+  if (deg >= 22.5 && deg < 67.5) return "شمال‌شرق";
+  if (deg >= 67.5 && deg < 112.5) return "شرق";
+  if (deg >= 112.5 && deg < 157.5) return "جنوب‌شرق";
+  if (deg >= 157.5 && deg < 202.5) return "جنوب";
+  if (deg >= 202.5 && deg < 247.5) return "جنوب‌غرب";
+  if (deg >= 247.5 && deg < 292.5) return "غرب";
+  if (deg >= 292.5 && deg < 337.5) return "شمال‌غرب";
+  return "نامشخص";
+};
     return (
         <>
             <div className="d-flex align-items-center justify-content-center mt-3 mb-2">
@@ -50,7 +60,12 @@ const CurrentWeatherDisplay = ({ data, isFavorite, toggleFavorite, dateBuilder }
                         </div>
                         <div className="text-center mx-2 mb-3 flex-grow-1" style={{ minWidth: '150px' }}>
                             <p>سرعت باد</p>
-                            <p className="fw-bold">{currentWeatherData.wind.speed.toFixed()} m/s</p>
+                            <p className="fw-bold" style={{direction: 'ltr'}}>{currentWeatherData.wind.speed.toFixed()} m/s</p>
+                        </div>
+                         <div className="text-center mx-2 mb-3 flex-grow-1" style={{ minWidth: '150px' }}>
+                            <p>جهت باد</p>
+                      <p className="fw-bold">{getWindDirection(currentWeatherData.wind.deg)}</p>
+
                         </div>
                     </div>
                 </div>
