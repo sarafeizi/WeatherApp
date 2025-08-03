@@ -174,7 +174,6 @@ body {
 .element:nth-child(5) {
     color: palevioletred;
 }
-
 @media (max-width: 768px) and (min-width: 450px) {
 
     .search input,

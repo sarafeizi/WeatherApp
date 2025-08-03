@@ -25,6 +25,13 @@ L.Icon.Default.mergeOptions({
 
 const API_KEY = "e90c7902b15b8c690182bb581503f6c3";
 
+const citiesWithAlefWithHat = [
+  "آبادان", "آباده", "آبدانان", "آبیک", "آذرشهر", "آرادان", "آران و بیدگل", "آمل", "آوج", "آیسک", "آق‌قلا",
+  "آبپخش", "آبسرد", "آبی‌بیکلو", "آبش‌احمد", "آستانه ‌اشرفیه", "آزادشهر", "آرمرده", "آبژدان",
+  "مهرآباد", "بهرآباد", "چشمه‌آب", "کوشک‌آباد", "نهرآباد", "فیروزآباد", "گنج‌آباد", "بندآور", "قنبرآباد", "علی‌آباد"
+];
+
+
 const Weather = () => {
   const [data, setData] = useState(null);
   const [location, setLocation] = useState("");
@@ -34,6 +41,7 @@ const Weather = () => {
     return saved ? JSON.parse(saved) : [];
   });
   const [favoritesWeather, setFavoritesWeather] = useState({});
+
   useEffect(() => {
     if (data) {
       window.scrollTo({
@@ -42,6 +50,7 @@ const Weather = () => {
       });
     }
   }, [data]);
+
   useEffect(() => {
     const fetchFavoriteIcons = async () => {
       const newFavoritesWeather = {};
@@ -65,18 +74,28 @@ const Weather = () => {
       setFavoritesWeather({});
     }
   }, [favorites]);
-  const fetchWeatherByCity = async (cityName) => {
-    const trimmedCity = cityName.trim();
-    if (!trimmedCity) return;
 
-    const url = `https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(trimmedCity)}&appid=${API_KEY}&units=metric&lang=fa`;
+  const normalizeCityName = (name) => {
+    const trimmed = name.trim();
+    for (const city of citiesWithAlefWithHat) {
+      if (city.replace(/آ/g, 'ا') === trimmed.replace(/آ/g, 'ا')) {
+        return city;
+      }
+    }
+    return trimmed;
+  };
+
+  const fetchWeatherByCity = async (cityName) => {
+    if (!cityName) return;
+
+    const url = `https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(cityName)}&appid=${API_KEY}&units=metric&lang=fa`;
 
     try {
       const response = await axios.get(url);
       setData(response.data);
       setError('');
       setLocation('');
-      localStorage.setItem("lastSearchedCity", trimmedCity);
+      localStorage.setItem("lastSearchedCity", cityName);
     } catch (err) {
       setError("شهر مورد نظر یافت نشد. لطفاً دوباره تلاش کنید.");
       setData(null);
@@ -84,13 +103,13 @@ const Weather = () => {
     }
   };
 
-
   const searchLocation = (event) => {
-    const trimmedLocation = location.trim();
-    if ((event.key === 'Enter' || event.type === "click") && trimmedLocation !== "") {
-      fetchWeatherByCity(trimmedLocation);
+    if ((event.key === 'Enter' || event.type === "click") && location.trim() !== "") {
+      const normalizedCity = normalizeCityName(location);
+      fetchWeatherByCity(normalizedCity);
     }
   };
+
 
   const addFavorite = (city) => {
     setFavorites(prev => {
@@ -126,7 +145,6 @@ const Weather = () => {
   const isFavorite = (city) => {
     return favorites.some(item => item.name === city.name && item.country === city.country);
   };
-
 
   const toggleFavorite = () => {
     if (!data || !data.city) return;
